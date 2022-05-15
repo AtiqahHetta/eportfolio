@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>wk10-e-a1</title>
+  <style>
+    #container{display: grid; width: 70%;margin: 0 auto;grid-template-columns:2fr 2fr 2fr 1fr ;grid-auto-rows: 3em;}
+   
+    /*no additional css is required*/
+
+
+  </style>
+</head>
+<!-- do not insert additional id attributes to any element -->
+<!-- do not remove any inline styles -->
+<body>
+  <form id="myform" action="" onsubmit="return false">
+  <div id="container">
+<h3 style="grid-column: 1/span 4">College Admission Calculator</h3>
+<div style="grid-column: 1/span 4;">Please enter the required information</div>
+<div>Are you over 25?</div>
+<div>
+<select name="" id="adult" onchange="display()">
+  <option value="0">select</option>
+  <option value="under25">Under 25</option>
+  <option value="over25">Over 25</option>
+</select>
+</div>
+<div style="grid-column:auto/span 2"></div>
+
+
+<div></div><div>subject/exam</div><div>subject grades</div><div>points</div>
+
+  <div class="hideall matured">English Language or Equivalent</div>
+  <div class="hideall matured">
+    <input type="radio" name="english" id="gcse" onclick="checkEng()">GCE O Level
+    <input type="radio" name="english" id="igcse" onclick="checkEng()">IGCE O level
+    <input type="radio" name="english" id="ielts" onclick="checkEng()">IELTS
+</div>
+<div class="hideall matured">
+    <select name="engolevel" id="engolevel" onchange="olvl()">
+    <option value="0">select</option>
+      <option value="A1">A1</option>
+      <option value="A2">A2</option>
+      <option value="B3">B3</option>
+      <option value="B4">B4</option>
+      <option value="C5">C5</option>
+      <option value="C6">C6</option>
+      <option value="F">F</option>
+    </select>
+     <select name="engigcse" id="engigcse" onchange="igc()">
+    <option value="0">select</option>
+      <option value="A*">A*</option>
+      <option value="A">A</option>
+      <option value="B">B</option>
+      <option value="C">C</option>
+      <option value="D">D</option>
+      <option value="E">E</option>
+      <option value="F">F</option>
+    </select>
+        <select name="engielts" id="engielts" onchange="iel()">
+      <option value="0">select</option>
+      <option value="9.0">9.0</option>
+      <option value="8.5">8.5</option>
+      <option value="8.0">8.0</option>
+      <option value="7.5">7.5</option>
+      <option value="7.0">7.0</option>
+      <option value="6.5">6.5</option>
+      <option value="6.0">6.0</option>
+    </select>
+</div>
+<div class="hideall matured" id="engpoints"></div>
+
+
+  <div class="hideall matured">Mathematics</div>
+  <div class="hideall matured">
+    <select name="maths" id="maths" onchange="resetM()">
+      <option value="0">select</option>
+      <option value="mathematics D">mathematics D</option>
+      <option value="additional mathematics">additional mathematics</option>
+  </select>
+</div>
+
+<div class="hideall matured">
+    <select name="mathsgrade" id="mathsgrade" onchange="mathP()">
+      <option value="0">select</option>
+      <option value="A1">A1</option>
+      <option value="A2">A2</option>
+      <option value="B3">B3</option>
+      <option value="B4">B4</option>
+      <option value="C5">C5</option>
+      <option value="C6">C6</option>
+      <option value="F">F</option>
+    </select>
+</div>
+
+<div class="hideall matured" id="mathspoints"></div>
+
+<div class="hideall">Relevant subject #1</div>
+<div class="hideall">
+    <select name="relevant1" id="relevant1" onclick="checkMath()" onchange="checkSci()">
+      <option value="0">select</option>
+      <option value="computer studies">computer studies</option>
+      <option value="computer sciences">computer sciences</option>
+      <option value="mathematics D">mathematics D</option>
+      <option value="additional mathematics">additional mathematics</option>
+    </select>
+</div>
+
+<div class="hideall">
+    <select name="relevant1grade" id="relevant1grade" onchange="relP()">
+      <option value="0">select</option>
+      <option value="A1">A1</option>
+      <option value="A2">A2</option>
+      <option value="B3">B3</option>
+      <option value="B4">B4</option>
+      <option value="C5">C5</option>
+      <option value="C6">C6</option>
+        <option value="F">F</option>
+    </select>
+</div>
+
+<div class="hideall" id="relevant1points"></div>
+
+<div class="hideall matured">
+  <button onclick="elig()" id="btnresult" style="align-self: center;">Click to show eligibility status</button>
+</div>
+  <div class="hideall matured" style="grid-column:2/span 2" id="status"></div>
+<div class="hideall matured" id="totalpoints"></div>
+<div style="grid-column:1/span 3"></div><div><button onclick="refresh()">reset form</button></div>
+
+</div>
+</form>
+<script> 
+ //write all the required functions here
+ //indentation is important
+ //also neatness
+
+ //repitition is not in the syllabus. but students may use loop since  they learnt this concept in ITP
+//  you are expected to use since covered in the classes:
+// function with parameters
+// getElementsByName
+// getElementsById
+
+// additionally
+// getElementsByClassName
+
+
+
+    //hiding all elements
+
+    var hidden =document.getElementsByClassName("hideall")
+    for (var i = 0; i < hidden.length; i++) {
+          hidden[i].style.display = "none";
+        }
+
+
+    
+
+    var engolevel = document.getElementById("engolevel");
+    var engigcse = document.getElementById("engigcse");
+    var engielts = document.getElementById("engielts");
+    engolevel.style.display="none"
+    engigcse.style.display="none"
+    engielts.style.display="none"
+    var gcse = document.getElementById("gcse")
+    var igcse = document.getElementById("igcse")
+    var ielts = document.getElementById("ielts")
+    var maths = document.getElementById("maths");
+
+    var mathsgrade = document.getElementById("mathsgrade");
+
+    var mathspoints = document.getElementById("mathspoints");
+
+    var relevant1 = document.getElementById("relevant1");
+
+    var relevant1grade = document.getElementById("relevant1grade");
+        
+    var relevant1points = document.getElementById("relevant1points");
+
+    var eligibility = document.getElementById("btnresult");
+
+    maths.disabled = true;
+    mathsgrade.disabled = true;
+    relevant1.disabled = true;
+    relevant1grade.disabled = true;
+    eligibility.disabled = true;
+
+    //
+    function checkEng(){
+      if(gcse.checked){
+        engolevel.style.display="block"
+
+        engigcse.style.display="none"
+        engielts.style.display="none"
+        document.getElementById("engpoints").innerHTML = "";
+      document.getElementById("engolevel").options[0].selected = true;
+      }
+      if(igcse.checked){
+        engigcse.style.display="block"
+
+        engolevel.style.display="none"
+        engielts.style.display="none"
+        document.getElementById("engpoints").innerHTML = "";
+      document.getElementById("engigcse").options[0].selected = true;
+      }
+      if(ielts.checked){
+        engielts.style.display="block"
+
+
+        engolevel.style.display="none"
+        engigcse.style.display="none"
+        document.getElementById("engpoints").innerHTML = "";
+      document.getElementById("engielts").options[0].selected = true;
+      }
+
+      maths.disabled = false;
+      mathsgrade.disabled = false;
+      relevant1.disabled = false;
+      relevant1grade.disabled = false;
+      eligibility.disabled = false;
+      
+    }
+    
+
+    //points for all olvl
+    var eP = 0;
+    function olvl(){
+    var engolevel1 = document.getElementById("engolevel").value;
+      if(engolevel1 == "0"){
+        document.getElementById("engpoints").innerHTML = "";
+      }
+      if(engolevel1 == "A1"){
+        eP = 1;
+        document.getElementById("engpoints").innerHTML = eP;
+        // console.log(eP)
+      }
+      if(engolevel1 == "A2"){
+        eP = 2;
+        document.getElementById("engpoints").innerHTML = eP;
+      }
+      if(engolevel1 == "B3"){
+        eP = 3;
+        document.getElementById("engpoints").innerHTML = eP;
+      }
+      if(engolevel1 == "B4"){
+        eP = 4;
+        document.getElementById("engpoints").innerHTML = eP;
+      }
+      if(engolevel1 == "C5"){
+        eP = 5;
+        document.getElementById("engpoints").innerHTML = eP;
+      }
+      if(engolevel1 == "C6"){
+        eP = 6;
+        document.getElementById("engpoints").innerHTML = eP;
+      }
+      if(engolevel1 == "F"){
+        eP = 7;
+        document.getElementById("engpoints").innerHTML = eP;
+      }
+    }
+
+    //points for igcse
+    function igc(){
+    var engigcse1 = document.getElementById("engigcse").value;
+      if(engigcse1 == "0"){
+        document.getElementById("engpoints").innerHTML = "";
+      }
+      if(engigcse1 == "A*"){
+        eP = 1;
+        document.getElementById("engpoints").innerHTML = eP;
+        // console.log(eP)
+      }
+      if(engigcse1 == "A"){
+        eP = 2;
+        document.getElementById("engpoints").innerHTML = eP;
+      }
+      if(engigcse1 == "B"){
+        eP = 3;
+        document.getElementById("engpoints").innerHTML = eP;
+      }
+      if(engigcse1 == "C"){
+        eP = 4;
+        document.getElementById("engpoints").innerHTML = eP;
+      }
+      if(engigcse1 == "D"){
+        eP = 5;
+        document.getElementById("engpoints").innerHTML = eP;
+      }
+      if(engigcse1 == "E"){
+        eP = 6;
+        document.getElementById("engpoints").innerHTML = eP;
+      }
+      if(engigcse1 == "F"){
+        eP = 7;
+        document.getElementById("engpoints").innerHTML = eP;
+      }
+    }
+
+    
+    //points for ielts
+    function iel(){
+    var engielts1 = document.getElementById("engielts").value;
+      if(engielts1 == "0"){
+        document.getElementById("engpoints").innerHTML = "";
+      }
+      if(engielts1 == "9.0"){
+        eP = 1;
+        document.getElementById("engpoints").innerHTML = eP;
+        // console.log(eP)
+      }
+      if(engielts1 == "8.5"){
+        eP = 2;
+        document.getElementById("engpoints").innerHTML = eP;
+      }
+      if(engielts1 == "8.0"){
+        eP = 3;
+        document.getElementById("engpoints").innerHTML = eP;
+      }
+      if(engielts1 == "7.5"){
+        eP = 4;
+        document.getElementById("engpoints").innerHTML = eP;
+      }
+      if(engielts1 == "7.0"){
+        eP = 5;
+        document.getElementById("engpoints").innerHTML = eP;
+      }
+      if(engielts1 == "6.5"){
+        eP = 6;
+        document.getElementById("engpoints").innerHTML = eP;
+      }
+      if(engielts1 == "6.0"){
+        eP = 7;
+        document.getElementById("engpoints").innerHTML = eP;
+      }
+    }
+    
+    //disabled options if maths D
+    function checkMath(){
+      document.getElementById("relevant1").options[3].disabled = false;
+
+      if(maths.value == "mathematics D"){
+        var relevantOp = document.getElementById("relevant1").options[3];
+        relevantOp.disabled = true;
+      }
+    }
+
+    //points for maths
+    var eP1 = 0;
+    function mathP(){
+    var mathsgrade1 = document.getElementById("mathsgrade").value;
+      if(mathsgrade1 == "0"){
+        document.getElementById("mathspoints").innerHTML = "";
+      }
+      if(mathsgrade1 == "A1"){
+        eP1 = 1;
+        document.getElementById("mathspoints").innerHTML = eP1;
+        // console.log(eP1)
+      }
+      if(mathsgrade1 == "A2"){
+        eP1 = 2;
+        document.getElementById("mathspoints").innerHTML = eP1;
+      }
+      if(mathsgrade1 == "B3"){
+        eP1 = 3;
+        document.getElementById("mathspoints").innerHTML = eP1;
+      }
+      if(mathsgrade1 == "B4"){
+        eP1 = 4;
+        document.getElementById("mathspoints").innerHTML = eP1;
+      }
+      if(mathsgrade1 == "C5"){
+        eP1 = 5;
+        document.getElementById("mathspoints").innerHTML = eP1;
+      }
+      if(mathsgrade1 == "C6"){
+        eP1 = 6;
+        document.getElementById("mathspoints").innerHTML = eP1;
+      }
+      if(mathsgrade1 == "F"){
+        eP1 = 7;
+        document.getElementById("mathspoints").innerHTML = eP1;
+      }
+    }
+
+    //if maths points select will return to default if maths subject change
+    function resetM(){
+      document.getElementById("mathsgrade").options[0].selected = true;
+      eP1 = 0;
+      document.getElementById("mathspoints").innerHTML = " ";
+    }
+
+    //check if computer sciences is selected and disabled options
+    function checkSci(){
+        document.getElementById("relevant1grade").options[5].disabled = false;
+        document.getElementById("relevant1grade").options[6].disabled = false;
+        document.getElementById("relevant1grade").options[7].disabled = false;
+        document.getElementById("relevant1grade").options[0].selected = true;
+        document.getElementById("relevant1points").innerHTML = " ";
+      if(relevant1.value == "computer sciences"){
+        document.getElementById("relevant1grade").options[5].disabled = true;
+        document.getElementById("relevant1grade").options[6].disabled = true;
+        document.getElementById("relevant1grade").options[7].disabled = true;
+      }
+    }
+
+
+    //relevant subjects points
+    var eP2 = 0;
+    function relP(){
+    var relevant1grade1 = document.getElementById("relevant1grade").value;
+      if(relevant1grade1 == "0"){
+        document.getElementById("relevant1points").innerHTML = "";
+      }
+      if(relevant1grade1 == "A1"){
+        eP2 = 1;
+        document.getElementById("relevant1points").innerHTML = eP2;
+        // console.log(eP2)
+      }
+      if(relevant1grade1 == "A2"){
+        eP2 = 2;
+        document.getElementById("relevant1points").innerHTML = eP2;
+      }
+      if(relevant1grade1 == "B3"){
+        eP2 = 3;
+        document.getElementById("relevant1points").innerHTML = eP2;
+      }
+      if(relevant1grade1 == "B4"){
+        eP2 = 4;
+        document.getElementById("relevant1points").innerHTML = eP2;
+      }
+      if(relevant1grade1 == "C5"){
+        eP2 = 5;
+        document.getElementById("relevant1points").innerHTML = eP2;
+      }
+      if(relevant1grade1 == "C6"){
+        eP2 = 6;
+        document.getElementById("relevant1points").innerHTML = eP2;
+      }
+      if(relevant1grade1 == "F"){
+        eP2 = 7;
+        document.getElementById("relevant1points").innerHTML = eP2;
+      }
+    }
+
+
+  
+    //check eligability
+    function elig(){
+      var totalP = 0;
+      totalP = eP + eP1 + eP2;
+      console.log(totalP)
+      var engolevel1 = document.getElementById("engolevel").value;
+      var engigcse1 = document.getElementById("engigcse").value;
+      var engielts1 = document.getElementById("engielts").value;
+      var mathsgrade1 = document.getElementById("mathsgrade").value;
+      var relevant1grade1 = document.getElementById("relevant1grade").value;
+      var age1 = document.getElementById("adult").value;
+      document.getElementById("status").innerHTML= "";
+      if( age1 == "under25" && (mathsgrade1 == "0" || relevant1grade1 == "0")){
+        document.getElementById("status").innerHTML= "You did not specify all subjects!";
+        document.getElementById("status").style.color = "red";
+      }
+      else if( age1 == "over25" && mathsgrade1 == "0"){
+        document.getElementById("status").innerHTML= "You did not specify all subjects!";
+        document.getElementById("status").style.color = "red";
+      }
+      else if( age1 == "under25" && totalP <= 18){
+        document.getElementById("totalpoints").innerHTML = totalP;
+        document.getElementById("status").innerHTML= "Eligible";
+        document.getElementById("status").style.color = "blue";
+      }
+      else if( age1 == "under25" && totalP >= 19){
+        document.getElementById("totalpoints").innerHTML = totalP;
+        document.getElementById("status").innerHTML= "Not Eligible";
+        document.getElementById("status").style.color = "red";
+      }
+      else if( age1 == "over25" && totalP <= 12){
+        document.getElementById("totalpoints").innerHTML = totalP;
+        document.getElementById("status").innerHTML= "Eligible as matured applicants";
+        document.getElementById("status").style.color = "blue";
+      }
+      else if( age1 == "over25" && totalP >= 13){
+        document.getElementById("totalpoints").innerHTML = totalP;
+        document.getElementById("status").innerHTML= "Not Eligible due to points exceed 12";
+        document.getElementById("status").style.color = "red";
+      }
+    }
+
+    function display(){
+    var hidden1 =document.getElementsByClassName("hideall")
+    var age = document.getElementById("adult").value;
+    var matured = document.getElementsByClassName("matured");
+    if(age == "under25"){
+      for (var i = 0; i < hidden1.length; i++) {
+          hidden1[i].style.display = "block";
+        }
+      document.getElementById("mathsgrade").options[0].selected = true;
+      eP1 = 0;
+      eP2 = 0
+      document.getElementById("mathspoints").innerHTML = " ";
+      document.getElementById("relevant1grade").options[0].selected = true;
+      document.getElementById("relevant1points").innerHTML = " ";
+        document.getElementById("totalpoints").innerHTML = " ";
+        document.getElementById("status").innerHTML=" ";
+
+
+
+    }
+    if( age == "over25"){
+      for (var i = 0; i < hidden1.length; i++) {
+          hidden1[i].style.display = "none";
+        }
+      for (var i = 0; i < matured.length; i++) {
+          matured[i].style.display = "block";
+        }
+      document.getElementById("mathsgrade").options[0].selected = true;
+      eP1 = 0;
+      eP2 = 0;
+      document.getElementById("mathspoints").innerHTML = " ";
+      document.getElementById("relevant1grade").options[0].selected = true;
+      document.getElementById("relevant1points").innerHTML = " ";
+      document.getElementById("totalpoints").innerHTML = " ";
+      document.getElementById("status").innerHTML= " ";
+
+
+
+    }
+    if(age == "0"){
+      for (var i = 0; i < hidden.length; i++) {
+          hidden[i].style.display = "none";
+        }
+    }
+
+    }
+
+
+    //refresh page
+    function refresh(){
+       location.reload();
+    }
+   
+
+</script>
+</body>
+</html>
