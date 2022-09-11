@@ -232,8 +232,8 @@
         '<div class="modal-footer">' +
         '<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>' +
         '<button type="button" class="btn btn-primary ' + classCheckoutCart + '">Pay by Cash</button>' +
-        // '<a href="../credit-card-interactions/card.html" style="background-color:blue; color:white;">Pay by Card</a>' +
-         '<form action="../credit-card-interactions/card.html"> <input type="submit" value="Pay by card" style="background-color:yellow; border-radius:5px; padding:5px; margin:5px;" /> </form>' +
+        // '<a href="Cardpayment.html" style="background-color:blue; color:white;">Pay by Card</a>' +
+         '<form action="Cardpayment.html"> <input type="submit" value="Pay by card" style="background-color:yellow; border-radius:5px; padding:5px; margin:5px;" /> </form>' +
         '</div>' +
         '</div>' +
         '</div>' +

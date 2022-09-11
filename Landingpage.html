@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title> TIRACHIM SUSHI HOUSE </title>
+
+	<!-- custom css file link -->
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+
+</head>
+<body>
+
+	<script type="text/javascript">
+		var username = prompt("Enter your name");
+		var table = prompt("Enter Your desire table number");
+
+
+		if(username == '' || table == ''){
+			alert("Please Enter your name & Table number");
+		} else {
+			document.write("<center>Dear " + username + "! Welcome to Tirachim Sushi House and here's your table number : " + table + "</center>");
+		}
+
+	</script>
+
+	<header>
+		<a href="#" class="logo"> Tirachim <span> . </span></a>
+		<ul class="navigation">
+			<li> <a href="#banner"> Home </a></li>
+			<li> <a href="#about"> About </a></li>
+			<li> <a href="#menu"> Menu </a></li>
+			<li> <a href="#contact"> Contact </a></li>
+		</ul>
+	</header>
+
+	<section class="banner" id="banner">
+		<div class="content">
+			<h2> Welcome to Tirachim Sushi House </h2>
+			<!-- <a href="#login" class="btn"> Login </a> -->
+		</div>
+	</section>
+
+	<section class="about" id="about">
+		<div class="row">
+			<div class="col50">
+			<h2 class="titleText"><span>A</span>bout Us</h2>
+			<br>
+			<p> Tirachim Sushi House was established in May 2022, Where we opened the doors of our first restaurant in Brunei Darussalam. Over the month, we have fortune to grow along side the Bruneian community and expanded to 5 branches across the region.<br><br>We serve an extensive variety of Japanese food & beverages that includes fresh sashimi, sushi, donburi, noodles, bento boxes and so on. We prioritize affordability, quality and freshness with our ingredients, and only serve value-for-money products which are primarily air-flown from Japan and Norway.<br><br>Now, Tirachim Sushi House is not only serving dine-in & take-away transactions, we also accommodate for other services that include delivery and catering. </p>
+		</div>
+		<div class="col50">
+			<div class="imgBx">
+				<img src="img/02.jpg">
+			</div>
+		</div>
+	</div>
+	</section>
+
+	<section class="menu" id="menu">
+		<div class="title">
+			<h2 class="titleText"> Our <span>M</span>enu </h2>
+			<br>
+			<p> Scan here to check our menu. </p>
+			<br>
+			<div id="qrcode"></div>
+			<br>
+		</div>
+	</section>
+
+	<div class="title">	
+	<h2 class="titleText"><span>C</span>ontact Us</h2>
+	<br>
+	<p>Send us some message </p>
+	<br>
+	</div>
+
+	<section class="contact" id="contact">
+		<div class="contactForm">
+			<h3> Send Message </h3>
+			<div class="inputBox">
+				<input type="text" placeholder="Name">
+			</div>
+			<div class="inputBox">
+				<input type="text" placeholder="Email">
+			</div>
+			<div class="inputBox">
+				<textarea placeholder="Message"></textarea>
+			</div>
+			<button type="submit" class="btn" onclick="alert('Thank you for your message!')"> Confirm </button>
+		</div>
+	</section>
+
+	<div class="copyrightText">
+		<p>Copyright 2022</p>
+	</div>
+
+	<script type="text/javascript">
+	window.addEventListener('scroll', function(){
+		const header = document.querySelector('header');
+		header.classList.toggle("sticky", window.scrollY > 0);
+	});
+	</script>
+
+	<script type="text/javascript">
+				new QRCode(document.getElementById("qrcode"), "https://21ftt1746.github.io/eportfolio/Menu.html");
+
+				setTimeout(location.reload.bind(location),600000)
+			</script>
+
+</body>
+</html>
